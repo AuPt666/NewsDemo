@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.jinbo.newsdemo.ui.dashboard.DashboardFragment"
+        android:name="com.jinbo.newsdemo.ui.island.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.jinbo.newsdemo.ui.notifications.NotificationsFragment"
+        android:name="com.jinbo.newsdemo.ui.person.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
