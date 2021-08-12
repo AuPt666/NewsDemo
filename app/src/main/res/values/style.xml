@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Button" parent="Theme.AppCompat">
+
+        <item name="android:colorControlHighlight">@color/gray</item>
+        
+        <item name="colorButtonNormal">@color/white</item>
+        
+    </style>
+</resources>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.island.DashboardFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_person"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:theme="@style/Theme.MaterialComponents.DayNight">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/person_userAvatar_circleImageView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@color/teal_200">
+                </de.hdodenhof.circleimageview.CircleImageView>
+
+                <TextView
+                    android:id="@+id/person_userName_textView"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/person_userAvatar_circleImageView"
+                    android:text="用户名"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/person_userSketch_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="1"
+                    android:layout_below="@id/person_userName_textView"
+                    android:layout_toRightOf="@id/person_userAvatar_circleImageView"
+                    android:text="用户信息简述......."
+                    android:textSize="15dp"
+                    android:textColor="@color/gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_below="@id/person_userSketch_textView"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_below="@id/person_userSketch_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/person_article_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_person_article"/>
+
+                    <ImageView
+                        android:id="@+id/person_post_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_person_post"/>
+
+                    <ImageView
+                        android:id="@+id/person_collect_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_person_collect"/>
+
+                    <ImageView
+                        android:id="@+id/person_bookcase_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_person_bookcase"/>
+
+                </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:theme="@style/Theme.MaterialComponents.DayNight">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/person_asset_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总资产：0"
+                    android:textSize="15sp"
+                    android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:id="@+id/person_assetsToView_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="查看>"
+                    android:textSize="15sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/black"
+                    android:layout_below="@id/person_assetsToView_textView"
+                    android:layout_marginTop="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_horizontal"
+                    android:layout_below="@id/person_assetsToView_textView"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/person_member_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_person_member"/>
+
+                    <ImageView
+                        android:id="@+id/person_diamond_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_person_diamond"/>
+
+                    <ImageView
+                        android:id="@+id/person_lucky_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_person_lucky"/>
+
+                    <ImageView
+                        android:id="@+id/person_rankList_imageView"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_person_ranklist"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/person_myWallet_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="我的钱包"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+            <TextView
+                android:id="@+id/person_events_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="简书活动"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+            <TextView
+                android:id="@+id/person_dailyTak_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="每日任务"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+            <TextView
+                android:id="@+id/person_myIsland_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="我的小岛/专题/文集"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+            <TextView
+                android:id="@+id/person_history_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="浏览历史"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/gray"/>
+
+            <TextView
+                android:id="@+id/person_darkMode_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="开启夜间模式"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+            <TextView
+                android:id="@+id/person_setting_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="设置"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+            <TextView
+                android:id="@+id/person_helper_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/button_selector"
+                android:text="帮助与反馈"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
