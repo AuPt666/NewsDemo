@@ -1,6 +1,8 @@
 package com.jinbo.newsdemo.logic
 
 import androidx.lifecycle.liveData
+import com.jinbo.newsdemo.logic.dao.NewsDao
+import com.jinbo.newsdemo.logic.model.NewsResponse
 import com.jinbo.newsdemo.logic.network.DemoNetwork
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
@@ -9,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 
 object Repository {
 
-    fun getNew(channel: String, num: Int) = fire(Dispatchers.IO){
+    fun getNews(channel: String, num: Int) = fire(Dispatchers.IO){
         val newsResponse = DemoNetwork.getNews(channel, num)
         if (newsResponse.msg == "ok"){
             val result = newsResponse.result
@@ -29,6 +31,16 @@ object Repository {
         }
 
     }
+
+    fun getHistory(): List<NewsResponse.Detail>{
+        return NewsDao.getNewsDao()
+    }
+
+    fun saveHistory(detail: NewsResponse.Detail){
+        NewsDao.saveNewsDao(detail)
+    }
+
+    fun isHistorySave(): Boolean = NewsDao.isNewsDaoSaved()
 
 
 

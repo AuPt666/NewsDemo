@@ -35,6 +35,9 @@ android {
             v2SigningEnabled false;
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {

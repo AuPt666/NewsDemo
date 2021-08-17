@@ -11,6 +11,7 @@ import kotlin.coroutines.suspendCoroutine
 
 object DemoNetwork {
 
+    //创建网络服务接口对象
     private val newsService = ServiceCreator.create(NewsService::class.java)
     private val islandService = ServiceCreator.create(IslandService::class.java)
 
