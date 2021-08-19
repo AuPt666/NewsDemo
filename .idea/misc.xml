@@ -13,7 +13,7 @@
         <entry key="..\:/NewsDemo/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/constraintlayout_test.xml" value="0.25" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_dashboard.xml" value="0.38645833333333335" />
-        <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_island.xml" value="0.36796536796536794" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_island_find.xml" value="0.2630208333333333" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_island_footprint.xml" value="0.2578125" />
@@ -31,6 +31,7 @@
         <entry key="..\:/NewsDemo/app/src/main/res/menu/bottom_nav_menu.xml" value="0.38645833333333335" />
         <entry key="..\:/NewsDemo/app/src/main/res/menu/toolbar_details_activity.xml" value="0.38645833333333335" />
         <entry key="..\:/NewsDemo/app/src/main/res/menu/toolbar_detailsactivity_menu.xml" value="0.38645833333333335" />
+        <entry key="..\:/NewsDemo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.25555555555555554" />
       </map>
     </option>
   </component>

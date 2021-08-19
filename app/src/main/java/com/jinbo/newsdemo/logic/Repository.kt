@@ -14,7 +14,8 @@ object Repository {
     fun getNews(channel: String, num: Int) = fire(Dispatchers.IO){
         val newsResponse = DemoNetwork.getNews(channel, num)
         if (newsResponse.msg == "ok"){
-            val result = newsResponse.result
+            //标记：在这里把result拆成details
+            val result = newsResponse.result.list
             Result.success(result)
         }else {
             Result.failure(RuntimeException("response status is ${newsResponse.status}"))
@@ -24,7 +25,7 @@ object Repository {
     fun getIsLand(sort: String, pagesize: Int) = fire(Dispatchers.IO){
         val islandResponse = DemoNetwork.getIsland(sort, pagesize)
         if (islandResponse.msg == "ok"){
-            val result = islandResponse.result
+            val result = islandResponse.result.list
             Result.success(result)
         }else {
             Result.failure(RuntimeException("response status is ${islandResponse.status}"))

@@ -18,7 +18,7 @@ class IslandViewModel: ViewModel(){
         Repository.getIsLand(sort, 10)
     }
 
-    fun searchIsland(sort: String){
+    fun getIsland(sort: String){
         islandResponseViewModel.value = sort
     }
 

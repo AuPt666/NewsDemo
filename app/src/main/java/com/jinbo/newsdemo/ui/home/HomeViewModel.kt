@@ -18,7 +18,7 @@ class HomeViewModel : ViewModel() {
         Repository.getNews(channel, 10)
     }
 
-    fun searchNews(channel: String){
+    fun getNews(channel: String){
         newsResponseLiveData.value = channel
     }
 

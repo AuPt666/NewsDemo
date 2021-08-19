@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.jinbo.newsdemo.DetailsActivity
 import com.jinbo.newsdemo.R
@@ -18,7 +19,7 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class IslandFootPrintAdapter(private val islandFootPrintFragment: IslandFootPrintFragment, private val islandFootPrintMsgList: List<NewsResponse.Detail>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class IslandFootPrintAdapter(private val islandFootPrintFragment: Fragment, private val islandFootPrintMsgList: List<NewsResponse.Detail>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.island_item_footprint_history, parent, false)
         val holder = IslandFootPrintViewHolder(view)
@@ -73,5 +74,9 @@ class IslandFootPrintAdapter(private val islandFootPrintFragment: IslandFootPrin
         val head: ImageView = view.findViewById(R.id.island_item_footprint_history_head_imageView)
         val title: TextView = view.findViewById(R.id.island_item_footprint_history_title_textView)
         val content: TextView = view.findViewById(R.id.island_item_footprint_history_content_textView)
+    }
+
+    inner class IslandFootPrintLengthWaysViewHolder(view: View): RecyclerView.ViewHolder(view){
+        val imageView: ImageView = view.findViewById(R.id.island_item_findOnlyImage_imageView)
     }
 }

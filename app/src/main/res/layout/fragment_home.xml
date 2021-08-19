@@ -25,7 +25,8 @@
                 android:layout_marginEnd="10dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:hint="请输入关键字"
+                android:maxLines="1"
+                android:hint="请输入关键字:(头条,财经,娱乐,军事,教育,科技)"
                 android:background="@drawable/search_bg"/>
 
         </FrameLayout>

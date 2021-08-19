@@ -14,6 +14,8 @@ class DetailsActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.activity_details)
         val toolbar: Toolbar = findViewById(R.id.details_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val detailsWebView: WebView = findViewById(R.id.details_webView)
         detailsWebView.settings.javaScriptEnabled = true
         detailsWebView.webViewClient = WebViewClient()
