@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jinbo.newsdemo.DetailsActivity
 import com.jinbo.newsdemo.R
 import com.jinbo.newsdemo.logic.model.IslandResponse
@@ -18,6 +19,7 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
+/***********小岛发现页面列表适配器**************/
 class IslandFindAdapter(private val islandFindFragment: IslandFindFragment, private val islandFindMsgList: List<IslandResponse.Detail>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val holder = when(viewType){
@@ -39,9 +41,6 @@ class IslandFindAdapter(private val islandFindFragment: IslandFindFragment, priv
             }
         }
 
-        StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build())
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build())
-
         holder.itemView.setOnClickListener {
             val position = holder.absoluteAdapterPosition
             val islandFindMsg = islandFindMsgList[position]
@@ -50,35 +49,33 @@ class IslandFindAdapter(private val islandFindFragment: IslandFindFragment, priv
             }
             //启动详情页面
             islandFindFragment.startActivity(intent)
-            islandFindFragment.activity?.finish()
         }
         return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
        val islandFindMsgDetail = islandFindMsgList[position]
-        when {
-            islandFindMsgDetail.pic == null -> {
+            if(islandFindMsgDetail.pic == null){
                 val islandFindOnlyTextViewHolder: IslandFindAdapter.IslandFindOnlyTextViewHolder = holder as IslandFindAdapter.IslandFindOnlyTextViewHolder
                 islandFindOnlyTextViewHolder.apply {
                     author.text = islandFindMsgDetail.addtime
-                    title.text = "这是第${islandFindMsgList.size}条"
+                    title.text = "没有标题，这是第${position+1}条"
                     content.text = islandFindMsgDetail.content
                 }
-            }
-            islandFindMsgDetail.content == null -> {
+            }else if (islandFindMsgDetail.content == null) {
                 val islandFindOnlyImageViewHolder: IslandFindAdapter.IslandFindOnlyImageViewHolder = holder as IslandFindAdapter.IslandFindOnlyImageViewHolder
                 islandFindOnlyImageViewHolder.apply {
-                    imageView.setImageBitmap(getBitmap(islandFindMsgDetail.pic))
+                    Glide.with(islandFindFragment.requireContext()).asBitmap()
+                        .placeholder(R.drawable.loading).load(islandFindMsgDetail.pic).into(imageView);
                 }
-            }else -> {
+            }else{
                 val islandFindHasImageViewHolder: IslandFindAdapter.IslandFindHasImageViewHolder = holder as IslandFindAdapter.IslandFindHasImageViewHolder
                 islandFindHasImageViewHolder.apply {
                     author.text = islandFindMsgDetail.addtime
                     title.text = "这是第${islandFindMsgList.size}条"
-                    imageView.setImageBitmap(getBitmap(islandFindMsgDetail.pic))
+                    Glide.with(islandFindFragment.requireContext()).asBitmap()
+                        .placeholder(R.drawable.loading).load(islandFindMsgDetail.pic).into(imageView)
             }
-        }
         }
     }
 
@@ -97,23 +94,6 @@ class IslandFindAdapter(private val islandFindFragment: IslandFindFragment, priv
                 IslandFindMsg.TYPE_HASIMAGE
             }
         }
-    }
-
-    private fun getBitmap(url: URL): Bitmap? {
-        var bitmap: Bitmap? = null
-        try {
-            val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
-            conn.connectTimeout = 5000
-            conn.requestMethod = "GET"
-            if (conn.responseCode == 200) {
-                val inputStream: InputStream = conn.inputStream
-                bitmap = BitmapFactory.decodeStream(inputStream)
-                inputStream.close()
-            }
-        }catch (e: IOException){
-            e.printStackTrace()
-        }
-        return bitmap
     }
 
     inner class IslandFindOnlyImageViewHolder(view: View): RecyclerView.ViewHolder(view){

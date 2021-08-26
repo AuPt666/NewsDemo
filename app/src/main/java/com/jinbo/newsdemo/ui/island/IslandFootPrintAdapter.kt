@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jinbo.newsdemo.DetailsActivity
 import com.jinbo.newsdemo.R
 import com.jinbo.newsdemo.logic.model.NewsResponse
@@ -19,13 +20,11 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
+/***********小岛足迹页面（浏览历史）适配器**************/
 class IslandFootPrintAdapter(private val islandFootPrintFragment: Fragment, private val islandFootPrintMsgList: List<NewsResponse.Detail>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.island_item_footprint_history, parent, false)
         val holder = IslandFootPrintViewHolder(view)
-
-        StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build())
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build())
 
         holder.itemView.setOnClickListener {
             val position = holder.absoluteAdapterPosition
@@ -35,40 +34,24 @@ class IslandFootPrintAdapter(private val islandFootPrintFragment: Fragment, priv
             }
             //启动详情页面
             islandFootPrintFragment.startActivity(intent)
-            islandFootPrintFragment.activity?.finish()
         }
         return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val islandFootPrintMsgDetail = islandFootPrintMsgList[position]
-        val islandFootPrintViewHolder: IslandFootPrintViewHolder = holder as IslandFootPrintAdapter.IslandFootPrintViewHolder
-        islandFootPrintViewHolder.apply {
-            head.setImageBitmap(getBitmap(islandFootPrintMsgDetail.pic))
-            title.text = islandFootPrintMsgDetail.title
-            content.text = islandFootPrintMsgDetail.content
+        if (islandFootPrintMsgDetail != null){
+            val islandFootPrintViewHolder: IslandFootPrintViewHolder = holder as IslandFootPrintAdapter.IslandFootPrintViewHolder
+            islandFootPrintViewHolder.apply {
+                val bitmapUrl = islandFootPrintMsgDetail.pic
+                Glide.with(islandFootPrintFragment.requireContext()).load(islandFootPrintMsgDetail.pic).into(head);
+                title.text = islandFootPrintMsgDetail.title
+                content.text = islandFootPrintMsgDetail.content
+            }
         }
     }
 
     override fun getItemCount() = islandFootPrintMsgList.size
-
-
-    private fun getBitmap(url: URL): Bitmap? {
-        var bitmap: Bitmap? = null
-        try {
-            val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
-            conn.connectTimeout = 5000
-            conn.requestMethod = "GET"
-            if (conn.responseCode == 200) {
-                val inputStream: InputStream = conn.inputStream
-                bitmap = BitmapFactory.decodeStream(inputStream)
-                inputStream.close()
-            }
-        }catch (e: IOException){
-            e.printStackTrace()
-        }
-        return bitmap
-    }
 
     inner class IslandFootPrintViewHolder(view: View): RecyclerView.ViewHolder(view){
         val head: ImageView = view.findViewById(R.id.island_item_footprint_history_head_imageView)
@@ -76,7 +59,4 @@ class IslandFootPrintAdapter(private val islandFootPrintFragment: Fragment, priv
         val content: TextView = view.findViewById(R.id.island_item_footprint_history_content_textView)
     }
 
-    inner class IslandFootPrintLengthWaysViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val imageView: ImageView = view.findViewById(R.id.island_item_findOnlyImage_imageView)
-    }
 }

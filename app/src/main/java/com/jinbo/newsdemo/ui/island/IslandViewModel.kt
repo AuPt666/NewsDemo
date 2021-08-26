@@ -8,6 +8,7 @@ import com.jinbo.newsdemo.logic.Repository
 import com.jinbo.newsdemo.logic.model.IslandResponse
 
 
+/***********小岛ViewModel**************/
 class IslandViewModel: ViewModel(){
 
     private val islandResponseViewModel = MutableLiveData<String>()

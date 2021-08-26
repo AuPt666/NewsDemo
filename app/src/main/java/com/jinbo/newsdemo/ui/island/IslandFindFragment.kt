@@ -1,6 +1,7 @@
 package com.jinbo.newsdemo.ui.island
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jinbo.newsdemo.R
+import com.jinbo.newsdemo.logic.model.IslandResponse
+import com.jinbo.newsdemo.logic.model.NewsResponse
 import com.jinbo.newsdemo.ui.home.HomeViewModel
 
-
+/***********小岛发现页面**************/
 class IslandFindFragment: Fragment() {
     private val islandViewModel by lazy { ViewModelProvider(this).get(IslandViewModel::class.java) }
     private val homeViewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
 
     private lateinit var islandFindAdapter: IslandFindAdapter
-    private lateinit var islandFootPrintAdapter: IslandFootPrintAdapter
+    private lateinit var islandFindImageAdapter: IslandFindImageAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_island, container, false)
+        return inflater.inflate(R.layout.fragment_island_find, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -30,10 +33,10 @@ class IslandFindFragment: Fragment() {
         //上半部横向滑动的RecyclerView
         val crosswiseLayoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
         val islandFindCrosswiseRecyclerView: RecyclerView = requireActivity().findViewById(R.id.island_find_crosswiseRecyclerView)
-        homeViewModel.getNews("头条")
         islandFindCrosswiseRecyclerView.layoutManager = crosswiseLayoutManager
-        islandFootPrintAdapter = IslandFootPrintAdapter(this, homeViewModel.newsList)
-        islandFindCrosswiseRecyclerView.adapter = islandFootPrintAdapter
+        homeViewModel.getNews("娱乐")
+        islandFindImageAdapter = IslandFindImageAdapter(this, homeViewModel.newsList)
+        islandFindCrosswiseRecyclerView.adapter = islandFindImageAdapter
 
         //下半部纵向滑动的RecyclerView
         val lengthwaysLayoutManager = LinearLayoutManager(activity)
@@ -54,11 +57,32 @@ class IslandFindFragment: Fragment() {
         islandViewModel.islandLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
             val island = result.getOrNull()
             if (island != null) {
+                val size = if(islandViewModel.islandList.size > 30) 30 else islandViewModel.islandList.size
+                val temporalList = ArrayList<IslandResponse.Detail>()
+                temporalList.addAll(island)
+                for (i in 0 until size){
+                    temporalList.add(islandViewModel.islandList[i])
+                }
+                islandViewModel.islandList.clear()
                 islandViewModel.islandList.addAll(island)
                 islandFindAdapter.notifyDataSetChanged()
             } else {
                 android.widget.Toast.makeText(activity,
-                    "没有对应分类的新闻，可尝试输入头条,财经,体育,娱乐,军事,教育,科技,NBA,股票,星座,女性,健康,育儿",
+                    "未获取新闻",
+                    android.widget.Toast.LENGTH_LONG).show()
+                result.exceptionOrNull()?.printStackTrace()
+            }
+            islandFindLengthwaysSwipeRefreshLayout.isRefreshing = false
+        })
+
+        homeViewModel.newsLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+            val news = result.getOrNull()
+            if (news != null) {
+                homeViewModel.newsList.addAll(news)
+                islandFindImageAdapter.notifyDataSetChanged()
+            } else {
+                android.widget.Toast.makeText(activity,
+                    "未获取新闻",
                     android.widget.Toast.LENGTH_LONG).show()
                 result.exceptionOrNull()?.printStackTrace()
             }

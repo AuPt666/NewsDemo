@@ -1,6 +1,7 @@
 package com.jinbo.newsdemo.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jinbo.newsdemo.R
 import com.jinbo.newsdemo.databinding.FragmentHomeBinding
+import com.jinbo.newsdemo.logic.model.NewsResponse
 
+/***********主页**************/
 class HomeFragment : Fragment() {
     val homeViewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
 
@@ -32,6 +35,7 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val layoutManger = LinearLayoutManager(activity)
         val recyclerView: RecyclerView = requireActivity().findViewById(R.id.home_recyclerView)
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = layoutManger
         //初始化新闻列表
         homeViewModel.getNews("头条")
@@ -51,9 +55,9 @@ class HomeFragment : Fragment() {
         //下拉刷新
         val homeSwipeRefresh: SwipeRefreshLayout = requireActivity().findViewById(R.id.home_swipeRefresh)
         homeSwipeRefresh.setOnRefreshListener {
+            homeSwipeRefresh.isRefreshing = true
             homeViewModel.getNews(newChannelArray[index])
             index = (++index)%newChannelArray.size
-            homeSwipeRefresh.isRefreshing = true
         }
 
         //观察数据变化将其加入List
@@ -61,7 +65,14 @@ class HomeFragment : Fragment() {
             val news = result.getOrNull()
             if (news != null) {
                 recyclerView.visibility = View.VISIBLE
-                homeViewModel.newsList.addAll(news)
+                val size = if(homeViewModel.newsList.size > 20) 20 else homeViewModel.newsList.size
+                val temporalList = ArrayList<NewsResponse.Detail>()
+                temporalList.addAll(news)
+                for (i in 0 until size){
+                    temporalList.add(homeViewModel.newsList[i])
+                }
+                homeViewModel.newsList.clear()
+                homeViewModel.newsList.addAll(temporalList)
                 homeAdapter.notifyDataSetChanged()
             } else {
                 android.widget.Toast.makeText(activity,
@@ -69,6 +80,7 @@ class HomeFragment : Fragment() {
                     android.widget.Toast.LENGTH_LONG).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
+            homeSwipeRefresh.isRefreshing = false
         })
     }
 }

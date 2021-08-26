@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.jinbo.newsdemo.R
 
+/***********个人信息页面**************/
 class PersonFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
