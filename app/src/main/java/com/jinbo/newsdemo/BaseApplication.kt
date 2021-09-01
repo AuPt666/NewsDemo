@@ -3,9 +3,8 @@ package com.jinbo.newsdemo
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.appcompat.app.AppCompatActivity
+import com.jinbo.newsdemo.logic.dao.IslandDao
+import com.jinbo.newsdemo.logic.dao.NewsDao
 
 /***********基础Application**************/
 class BaseApplication : Application(){
@@ -23,6 +22,7 @@ class BaseApplication : Application(){
 
     override fun onTerminate() {
         super.onTerminate()
-
+        NewsDao.saveNews()
+        IslandDao.saveIsland()
     }
 }

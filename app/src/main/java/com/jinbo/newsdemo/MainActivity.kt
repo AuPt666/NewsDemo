@@ -1,9 +1,12 @@
 package com.jinbo.newsdemo
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jinbo.newsdemo.logic.Repository
 import com.jinbo.newsdemo.ui.home.HomeFragment
 import com.jinbo.newsdemo.ui.island.IslandFragment
 import com.jinbo.newsdemo.ui.person.PersonFragment
@@ -36,6 +39,14 @@ class MainActivity : AppCompatActivity() {
             }
             true
         })
+
+        val deleteDbBtn: Button = findViewById(R.id.delete_database)
+        deleteDbBtn.setOnClickListener {
+            Thread{
+                Repository.deleteDataBase(BaseApplication.context)
+            }.start()
+            Toast.makeText(this, "删除数据库", Toast.LENGTH_SHORT).show()
+        }
     }
 
     //加载对应position的Fragment

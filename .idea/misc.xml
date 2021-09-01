@@ -9,7 +9,7 @@
         <entry key="..\:/NewsDemo/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.25555555555555554" />
         <entry key="..\:/NewsDemo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.25555555555555554" />
         <entry key="..\:/NewsDemo/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.25555555555555554" />
-        <entry key="..\:/NewsDemo/app/src/main/res/layout/activity_details.xml" value="0.25" />
+        <entry key="..\:/NewsDemo/app/src/main/res/layout/activity_details.xml" value="0.2" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/activity_test.xml" value="0.19739583333333333" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/constraintlayout_test.xml" value="0.25" />
@@ -21,7 +21,7 @@
         <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_notifications.xml" value="0.38645833333333335" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/fragment_person.xml" value="0.25" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/home_item_hasimage.xml" value="0.2630208333333333" />
-        <entry key="..\:/NewsDemo/app/src/main/res/layout/home_item_onlyimage.xml" value="0.25" />
+        <entry key="..\:/NewsDemo/app/src/main/res/layout/home_item_onlyimage.xml" value="0.5" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/home_item_onlytext.xml" value="0.1557377049180328" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/home_item_withimage.xml" value="0.22" />
         <entry key="..\:/NewsDemo/app/src/main/res/layout/island_item_find_onlyimage.xml" value="0.12" />

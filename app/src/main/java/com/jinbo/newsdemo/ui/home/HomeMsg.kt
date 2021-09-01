@@ -1,7 +1,5 @@
 package com.jinbo.newsdemo.ui.home
 
-import android.net.Uri
-import java.net.URL
 
 /**********主页信息分类***************/
 class HomeMsg{

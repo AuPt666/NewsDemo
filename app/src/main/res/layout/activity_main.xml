@@ -12,8 +12,16 @@
         android:layout_above="@id/main_activity_nav_view"
         android:orientation="vertical">
 
-
     </FrameLayout>
+
+    <Button
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/delete_database"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:text="清空数据库"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_activity_nav_view"

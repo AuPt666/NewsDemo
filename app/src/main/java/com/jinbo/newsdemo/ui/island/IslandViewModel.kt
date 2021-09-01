@@ -1,6 +1,5 @@
 package com.jinbo.newsdemo.ui.island
 
-import android.view.animation.Transformation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel

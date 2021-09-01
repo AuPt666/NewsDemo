@@ -1,7 +1,7 @@
 package com.jinbo.newsdemo.ui.island
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jinbo.newsdemo.R
 import com.jinbo.newsdemo.logic.model.IslandResponse
-import com.jinbo.newsdemo.logic.model.NewsResponse
 import com.jinbo.newsdemo.ui.home.HomeViewModel
 
 /***********小岛发现页面**************/
@@ -87,5 +86,10 @@ class IslandFindFragment: Fragment() {
                 result.exceptionOrNull()?.printStackTrace()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        islandFindAdapter.notifyDataSetChanged()
     }
 }

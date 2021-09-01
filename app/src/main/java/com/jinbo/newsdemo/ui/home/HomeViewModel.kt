@@ -1,12 +1,11 @@
 package com.jinbo.newsdemo.ui.home
 
+import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.jinbo.newsdemo.logic.Repository
-import com.jinbo.newsdemo.logic.model.IslandResponse
 import com.jinbo.newsdemo.logic.model.NewsResponse
 
 /***********主页ViewModel**************/
@@ -25,9 +24,11 @@ class HomeViewModel : ViewModel() {
         newsResponseLiveData.value = channel
     }
 
-    fun saveHistory(detail: NewsResponse.Detail) = Repository.saveHistory(detail)
+    fun saveHistory(detail: NewsResponse.Detail, context: Context) = Repository.saveHistory(detail, context)
 
-    fun getHistory(): List<NewsResponse.Detail> = Repository.getHistory()
+    fun getHistory(context: Context): List<NewsResponse.Detail> = Repository.getHistory(context)
+
+    fun isRead(title: String) = Repository.isRead(title)
 
     fun isHistorySaved(): Boolean = Repository.isHistorySave()
 

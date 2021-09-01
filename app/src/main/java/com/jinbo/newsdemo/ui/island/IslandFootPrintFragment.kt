@@ -1,20 +1,24 @@
 package com.jinbo.newsdemo.ui.island
 
+import android.os.AsyncTask
 import android.os.Bundle
-import android.service.autofill.FillEventHistory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.jinbo.newsdemo.BaseApplication
 import com.jinbo.newsdemo.R
+import com.jinbo.newsdemo.logic.model.NewsResponse
 import com.jinbo.newsdemo.ui.home.HomeViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 /***********小岛足迹页面**************/
 class IslandFootPrintFragment: Fragment() {
@@ -24,8 +28,8 @@ class IslandFootPrintFragment: Fragment() {
     private lateinit var islandFootPrintAdapterToRecommend: IslandFootPrintRecommendAdapter
     private lateinit var islandFootPrintAdapterToHistory: IslandFootPrintAdapter
 
-    var fragmentIsVisible = false
-    var historyListSize = 0
+    private var fragmentIsVisible = false
+    private var historyList: List<NewsResponse.Detail>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_island_footprint, container, false)
@@ -34,7 +38,7 @@ class IslandFootPrintFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //推荐部分
-        val islandFootPrintLengthwaysLayoutManger: GridLayoutManager = GridLayoutManager(this.context, 2)
+        val islandFootPrintLengthwaysLayoutManger = GridLayoutManager(this.context, 2)
         val islandFootprintLengthwaysRecyclerView: RecyclerView = requireActivity().findViewById(R.id.island_footprint_lengthwaysRecyclerView)
         homeViewModel.getNews("科技")
         islandFootprintLengthwaysRecyclerView.layoutManager = islandFootPrintLengthwaysLayoutManger
@@ -42,12 +46,11 @@ class IslandFootPrintFragment: Fragment() {
         islandFootprintLengthwaysRecyclerView.adapter = islandFootPrintAdapterToRecommend
 
         //浏览历史部分
-        val islandFootprintHistoryLayoutManger: LinearLayoutManager = LinearLayoutManager(activity)
+        val islandFootprintHistoryLayoutManger = LinearLayoutManager(activity)
         val islandFootprintHistoryRecyclerView: RecyclerView = requireActivity().findViewById(R.id.island_footprint_crosswiseRecyclerView)
-        var historyList = homeViewModel.getHistory()
-        historyListSize = historyList.size
+        historyList = ArrayList()
         islandFootprintHistoryRecyclerView.layoutManager = islandFootprintHistoryLayoutManger
-        islandFootPrintAdapterToHistory = IslandFootPrintAdapter(this, historyList)
+        islandFootPrintAdapterToHistory = IslandFootPrintAdapter(this, historyList!!)
         islandFootprintHistoryRecyclerView.adapter = islandFootPrintAdapterToHistory
 
         homeViewModel.newsLiveData.observe(viewLifecycleOwner, { result ->
@@ -66,13 +69,37 @@ class IslandFootPrintFragment: Fragment() {
         super.setUserVisibleHint(isVisibleToUser)
         if(userVisibleHint){
             fragmentIsVisible = true
-            var historyList = homeViewModel.getHistory()
-            if (historyList.size > historyListSize){
-                islandFootPrintAdapterToRecommend.notifyDataSetChanged()
-                historyListSize = historyList.size
-            }
+            refreshHistoryList()
         }else{
             fragmentIsVisible = false
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        refreshHistoryList()
+        Log.e("onHiddenChange", "66666")
+    }
+
+    //刷新历史记录
+    fun refreshHistoryList(){
+        val findHistoryTask = FindHistoryTask()
+        findHistoryTask.execute()
+    }
+
+    //开启线程读取数据库数据并返回查询结果
+    private inner class FindHistoryTask: AsyncTask<Void, Void, List<NewsResponse.Detail>>() {
+        override fun doInBackground(vararg params: Void?): List<NewsResponse.Detail> {
+            Log.e("findHistoryTAsk", "开始读取历史信息")
+            historyList = homeViewModel.getHistory(BaseApplication.context)
+            return historyList as List<NewsResponse.Detail>
+        }
+
+        override fun onPostExecute(result: List<NewsResponse.Detail>?) {
+            super.onPostExecute(result)
+            Log.e("findHistoryTAsk", "刷新内容")
+            historyList?.let { islandFootPrintAdapterToHistory.setIslandFootPrintMsgList(it) }
+            islandFootPrintAdapterToHistory.notifyDataSetChanged()
         }
     }
 }

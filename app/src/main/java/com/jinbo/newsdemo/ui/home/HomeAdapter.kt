@@ -1,10 +1,6 @@
 package com.jinbo.newsdemo.ui.home
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.StrictMode
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jinbo.newsdemo.BaseApplication
 import com.jinbo.newsdemo.DetailsActivity
 import com.jinbo.newsdemo.R
+import com.jinbo.newsdemo.logic.Repository
 import com.jinbo.newsdemo.logic.model.NewsResponse
-import java.io.IOException
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
 
 /***********主页列表适配器**************/
 class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgList: List<NewsResponse.Detail>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -48,11 +42,13 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
             val homeMsg = homeMsgList[position]
             val intent = Intent(homeFragment.context, DetailsActivity::class.java).apply {
                 putExtra("DetailsUrl", homeMsg.url.toString())
+                putExtra("DetailsLikeFlag", true)
             }
             //将浏览记录保存至历史列表
-            homeFragment.homeViewModel.saveHistory(homeMsg)
+            homeFragment.homeViewModel.saveHistory(homeMsg, BaseApplication.context)
             //启动详情页面
             homeFragment.context?.startActivity(intent)
+            notifyItemChanged(position)
         }
         return holder
     }
@@ -67,6 +63,11 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
                     src.text = homeMsgDetail.src
                     title.text = homeMsgDetail.title
                     content.text = homeMsgDetail.content
+                    if (Repository.isRead(homeMsgDetail.title)) {
+                        readState.text = "已阅读"
+                    } else{
+                        readState.text = ""
+                    }
                 }
             }
             1 -> {
@@ -75,7 +76,12 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
                     title.text = homeMsgDetail.title
                     src.text = homeMsgDetail.src
                     Glide.with(homeFragment.requireContext()).asBitmap()
-                        .placeholder(R.drawable.loading).load(homeMsgDetail.pic).into(imageVessel);
+                        .placeholder(R.drawable.loading).load(homeMsgDetail.pic).into(imageVessel)
+                    if (Repository.isRead(homeMsgDetail.title)) {
+                        readState.text = "已阅读"
+                    } else{
+                        readState.text = ""
+                    }
                 }
             }else -> {
                 val homeHasImageViewHolder: HomeHasImageViewHolder = holder as HomeHasImageViewHolder
@@ -86,6 +92,11 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
                     content.text = homeMsgDetail.content
                     Glide.with(homeFragment.requireContext()).asBitmap()
                         .placeholder(R.drawable.loading).load(homeMsgDetail.pic).into(pic)
+                    if (Repository.isRead(homeMsgDetail.title)) {
+                        readState.text = "已阅读"
+                    } else{
+                        readState.text = ""
+                    }
                 }
             }
         }
@@ -112,6 +123,7 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
         val title: TextView = view.findViewById(R.id.homeItemOnlyImage_titleTextView)
         val src: TextView = view.findViewById(R.id.homeItemOnlyImage_srcTextView)
         val imageVessel: ImageView = view.findViewById(R.id.homeItemOnlyImage_imageVessel)
+        val readState: TextView = view.findViewById(R.id.homeItemOnlyImage_readStateTextView)
     }
 
     //只有文字时加载的ViewHolder
@@ -120,6 +132,7 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
         val src: TextView = view.findViewById(R.id.homeItemOnlyText_srcTextView)
         val title: TextView = view.findViewById(R.id.homeItemOnlyText_titleTextView)
         val content: TextView = view.findViewById(R.id.homeItemOnlyText_contentTextView)
+        val readState: TextView = view.findViewById(R.id.homeItemOnlyText_readStateTextView)
     }
 
     //都有的时候加载的ViewHolder
@@ -129,6 +142,7 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
         val title: TextView = view.findViewById(R.id.homeItemWithImage_titleTextView)
         val content: TextView = view.findViewById(R.id.homeItemWithImage_contentTextView)
         val pic: ImageView = view.findViewById(R.id.homeItemWithImage_picImageView)
+        val readState: TextView = view.findViewById(R.id.homeItemHasImage_readStateTextView)
     }
 
 
