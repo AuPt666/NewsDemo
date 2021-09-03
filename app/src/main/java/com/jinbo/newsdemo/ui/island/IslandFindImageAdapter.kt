@@ -29,6 +29,7 @@ class IslandFindImageAdapter(private val islandFindFragment: IslandFindFragment,
             val islandFindMsg = islandFindImgList[position]
             val intent = Intent(parent.context, DetailsActivity::class.java).apply {
                 putExtra("DetailsUrl", islandFindMsg.url.toString())
+                putExtra("ViewType", 0)
             }
             //启动详情页面
             islandFindFragment.startActivity(intent)

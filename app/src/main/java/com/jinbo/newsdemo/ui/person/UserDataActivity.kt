@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.jinbo.newsdemo.R
+import com.jinbo.newsdemo.logic.Repository
 
 
 /**************用户个人信息编辑界面***************/
@@ -35,6 +36,10 @@ class UserDataActivity: AppCompatActivity() {
         //设置修改性别功能
         val genderTextView: TextView = findViewById(R.id.userData_gender_textView)
         genderTextView.setOnClickListener { showChangeGenderDialogView() }
+
+        //设置编辑界面功能
+        val introductionTextView: TextView = findViewById(R.id.userData_introduction_textView)
+        introductionTextView.setOnClickListener { showIntroductionDialogView() }
     }
 
 
@@ -62,7 +67,7 @@ class UserDataActivity: AppCompatActivity() {
                 if (newName.isNotEmpty()){
                     //将新修改的昵称保存
                     Toast.makeText(context, "新昵称：$newName", Toast.LENGTH_SHORT).show()
-                    //保存昵称还没写********
+                    Repository.saveUserName(newName)
                 }else{
                     Toast.makeText(context, "昵称为空，修改失败", Toast.LENGTH_SHORT).show()
                 }
@@ -75,6 +80,7 @@ class UserDataActivity: AppCompatActivity() {
         }
     }
 
+    //展示更改性别界面的弹窗
     private fun showChangeGenderDialogView(){
         val genderList = arrayOf<CharSequence>("保密", "男", "女")
         val builder = AlertDialog.Builder(this)
@@ -84,8 +90,8 @@ class UserDataActivity: AppCompatActivity() {
             setSingleChoiceItems(genderList, 0){ _, which ->
                 choice = which
             }
-            setPositiveButton("确定"){_, _ ->
-                //将更改后的性别更新
+            setPositiveButton("确定"){ _, _ ->
+                Repository.saveUserGender("${genderList[choice]}")
                 Toast.makeText(context, "更改性:${genderList[choice]}", Toast.LENGTH_SHORT).show()
             }
             setCancelable(true)
@@ -94,4 +100,28 @@ class UserDataActivity: AppCompatActivity() {
 
     }
 
+    //展示编辑简介界面的弹窗
+    private fun showIntroductionDialogView(){
+        val introductionDialogView: View = LayoutInflater.from(this).inflate(R.layout.userdata_introduction_dialog, null)
+        val introductionEditText: EditText = introductionDialogView.findViewById(R.id.userDataDialog_introduction_edt)
+
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setTitle("编辑简介")
+            setView(introductionDialogView)
+            setPositiveButton("确定"){ _, _ ->
+                val introductionText = introductionEditText.text.toString()
+                if (introductionText.isNotEmpty()){
+                    Repository.saveUserIntroduction(introductionText)
+                }else {
+                    Toast.makeText(context, "个人简介不能为空", Toast.LENGTH_SHORT).show()
+                }
+            }
+            setNegativeButton("取消"){ _, _ ->
+                Toast.makeText(context, "取消编辑个人简介", Toast.LENGTH_SHORT).show()
+            }
+            setCancelable(true)
+            show()
+        }
+    }
 }

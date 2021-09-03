@@ -29,6 +29,7 @@ class IslandFootPrintRecommendAdapter(private val islandFootPrintFragment: Islan
             val islandFootPrintMsg = islandFootPrintImgList[position]
             val intent = Intent(parent.context, DetailsActivity::class.java).apply {
                 putExtra("DetailsUrl", islandFootPrintMsg.url.toString())
+                putExtra("ViewType", 0)
             }
             //启动详情页面
             islandFootPrintFragment.startActivity(intent)

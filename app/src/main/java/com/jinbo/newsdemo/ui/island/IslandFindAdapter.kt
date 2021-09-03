@@ -42,6 +42,7 @@ class IslandFindAdapter(private val islandFindFragment: IslandFindFragment, priv
             val islandFindMsg = islandFindMsgList[position]
             val intent = Intent(parent.context, DetailsActivity::class.java).apply {
                 putExtra("DetailsUrl", islandFindMsg.url.toString())
+                putExtra("ViewType", 1)
                 putExtra("DetailsLikeFlag", Repository.isLike(URL(islandFindMsg.url.toString())))
             }
             //启动详情页面

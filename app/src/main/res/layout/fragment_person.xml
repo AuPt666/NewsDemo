@@ -38,14 +38,27 @@
                     android:src="@color/teal_200"></de.hdodenhof.circleimageview.CircleImageView>
 
                 <TextView
-                    android:id="@+id/person_userName_textView"
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/person_userGender_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/person_userAvatar_circleImageView"
+                    android:layout_alignTop="@+id/person_userAvatar_circleImageView"
+                    android:layout_alignEnd="@+id/person_userAvatar_circleImageView"
+                    android:layout_alignBottom="@+id/person_userAvatar_circleImageView"
+                    android:gravity="center"
+                    android:text="保密"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/person_userName_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_toRightOf="@id/person_userAvatar_circleImageView"
                     android:text="用户名"
-                    android:textSize="18dp"
-                    android:textColor="@color/gray"/>
+                    android:textColor="@color/gray"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/person_userSketch_textView"
@@ -274,7 +287,7 @@
                 android:layout_height="50dp"
                 android:paddingLeft="15dp"
                 android:background="@drawable/button_selector"
-                android:text="设置"
+                android:text="编辑个人资料"
                 android:textColor="@color/black"
                 android:gravity="left|center_vertical"/>
 

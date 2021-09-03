@@ -2,11 +2,13 @@ package com.jinbo.newsdemo
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -45,6 +47,7 @@ class DetailsActivity: AppCompatActivity(){
 
         //设置点赞功能
         val floatingActionButton: FloatingActionButton = findViewById(R.id.details_fab)
+        if (intent.getIntExtra("ViewType", 0) == 0) floatingActionButton.visibility = View.INVISIBLE
         floatingActionButton.setOnClickListener {
             likeFlag = !likeFlag
             if(likeFlag) Toast.makeText(this, "点赞成功", Toast.LENGTH_SHORT).show()

@@ -24,6 +24,7 @@ class IslandFootPrintAdapter(private val islandFootPrintFragment: Fragment, priv
             val islandFootPrintMsg = islandFootPrintMsgList[position]
             val intent = Intent(parent.context, DetailsActivity::class.java).apply {
                 putExtra("DetailsUrl", islandFootPrintMsg.url.toString())
+                putExtra("ViewType", 0)
             }
             //启动详情页面
             islandFootPrintFragment.startActivity(intent)

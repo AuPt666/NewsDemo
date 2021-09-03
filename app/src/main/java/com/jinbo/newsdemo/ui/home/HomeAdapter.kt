@@ -44,7 +44,7 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
             val homeMsg = homeMsgList[position]
             val intent = Intent(homeFragment.context, DetailsActivity::class.java).apply {
                 putExtra("DetailsUrl", homeMsg.url.toString())
-                putExtra("DetailsLikeFlag", true)
+                putExtra("ViewType", 0)
             }
             //将浏览记录保存至历史列表
             homeFragment.homeViewModel.saveHistory(homeMsg, BaseApplication.context)

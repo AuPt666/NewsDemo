@@ -8,6 +8,7 @@ import com.jinbo.newsdemo.BaseApplication.Companion.context
 import com.jinbo.newsdemo.logic.dao.IslandDao
 import com.jinbo.newsdemo.logic.dao.NewsDao
 import com.jinbo.newsdemo.logic.dao.NewsDataDao
+import com.jinbo.newsdemo.logic.dao.UserDataDao
 import com.jinbo.newsdemo.logic.model.NewsData
 import com.jinbo.newsdemo.logic.model.NewsResponse
 import com.jinbo.newsdemo.logic.network.DemoNetwork
@@ -99,6 +100,14 @@ object Repository {
     fun saveLike(url: URL){
         IslandDao.likeIslandDao(url)
     }
+
+    //存取用户信息
+    fun saveUserName(userName: String) = UserDataDao.saveUserName(userName)
+    fun saveUserIntroduction(introduction: String) = UserDataDao.saveUserIntroduction(introduction)
+    fun saveUserGender(gender: String) = UserDataDao.saveUserGender(gender)
+    fun getUserName() = UserDataDao.getUserName()
+    fun getUserIntroduction() = UserDataDao.getUserIntroduction()
+    fun getUserGender() = UserDataDao.getUserGender()
 
     fun isLike(url: URL) = IslandDao.isLike(url)
 

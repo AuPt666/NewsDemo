@@ -22,6 +22,7 @@ class HistoryAdapter(private val historyActivity: HistoryActivity, private var h
             val historyMsg = historyList[position]
             val intent = Intent(parent.context, DetailsActivity::class.java).apply {
                 putExtra("DetailsUrl", historyMsg.url.toString())
+                putExtra("ViewType", 0)
             }
             //启动详情页面
             historyActivity.startActivity(intent)
