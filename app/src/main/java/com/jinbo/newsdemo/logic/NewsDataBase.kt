@@ -5,6 +5,8 @@ import androidx.room.*
 import com.jinbo.newsdemo.logic.dao.NewsDataDao
 import com.jinbo.newsdemo.logic.model.NewsData
 
+
+/**********数据库**********/
 @Database(version = 1, entities = [NewsData::class])
 abstract class NewsDataBase: RoomDatabase() {
     abstract fun newsDataDao(): NewsDataDao

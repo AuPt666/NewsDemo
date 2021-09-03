@@ -29,7 +29,7 @@ class IslandFootPrintFragment: Fragment() {
     private lateinit var islandFootPrintAdapterToHistory: IslandFootPrintAdapter
 
     private var fragmentIsVisible = false
-    private var historyList: List<NewsResponse.Detail>? = null
+    private var historyList: List<NewsResponse.Detail>? = ArrayList<NewsResponse.Detail>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_island_footprint, container, false)
@@ -48,7 +48,6 @@ class IslandFootPrintFragment: Fragment() {
         //浏览历史部分
         val islandFootprintHistoryLayoutManger = LinearLayoutManager(activity)
         val islandFootprintHistoryRecyclerView: RecyclerView = requireActivity().findViewById(R.id.island_footprint_crosswiseRecyclerView)
-        historyList = ArrayList()
         islandFootprintHistoryRecyclerView.layoutManager = islandFootprintHistoryLayoutManger
         islandFootPrintAdapterToHistory = IslandFootPrintAdapter(this, historyList!!)
         islandFootprintHistoryRecyclerView.adapter = islandFootPrintAdapterToHistory
@@ -90,14 +89,13 @@ class IslandFootPrintFragment: Fragment() {
     //开启线程读取数据库数据并返回查询结果
     private inner class FindHistoryTask: AsyncTask<Void, Void, List<NewsResponse.Detail>>() {
         override fun doInBackground(vararg params: Void?): List<NewsResponse.Detail> {
-            Log.e("findHistoryTAsk", "开始读取历史信息")
             historyList = homeViewModel.getHistory(BaseApplication.context)
             return historyList as List<NewsResponse.Detail>
         }
 
+        //查询完成，刷新浏览历史列表
         override fun onPostExecute(result: List<NewsResponse.Detail>?) {
             super.onPostExecute(result)
-            Log.e("findHistoryTAsk", "刷新内容")
             historyList?.let { islandFootPrintAdapterToHistory.setIslandFootPrintMsgList(it) }
             islandFootPrintAdapterToHistory.notifyDataSetChanged()
         }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/userDataBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/userData_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:title="个人信息"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/userData_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userDataBarLayout">
+
+        <TextView
+            android:padding="15dp"
+            android:id="@+id/userData_headPhoto_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="更换头像"
+            android:textSize="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:padding="15dp"
+            android:id="@+id/userData_name_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="修改昵称"
+            android:textSize="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:padding="15dp"
+            android:id="@+id/userData_gender_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置性别"
+            android:textSize="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:padding="15dp"
+            android:id="@+id/userData_introduction_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="编辑简介"
+            android:textSize="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gray"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

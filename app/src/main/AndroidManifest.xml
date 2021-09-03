@@ -19,6 +19,18 @@
             android:theme="@style/Theme.NewsDemo.NoActionBar">
         </activity>
         <activity
+            android:name=".ui.person.HistoryActivity"
+            android:exported="true"
+            android:label="浏览历史"
+            android:theme="@style/Theme.NewsDemo.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ui.person.UserDataActivity"
+            android:exported="true"
+            android:label="个人资料"
+            android:theme="@style/Theme.NewsDemo.NoActionBar">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name" >

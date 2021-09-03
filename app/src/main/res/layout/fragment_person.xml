@@ -29,10 +29,13 @@
                     android:id="@+id/person_userAvatar_circleImageView"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_margin="10dp"
                     android:layout_alignParentLeft="true"
-                    android:src="@color/teal_200">
-                </de.hdodenhof.circleimageview.CircleImageView>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:contextClickable="true"
+                    android:src="@color/teal_200"></de.hdodenhof.circleimageview.CircleImageView>
 
                 <TextView
                     android:id="@+id/person_userName_textView"
@@ -198,17 +201,17 @@
             android:orientation="vertical"
             android:layout_marginTop="15dp">
 
-            <TextView
+            <Button
                 android:id="@+id/person_myWallet_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:paddingLeft="15dp"
                 android:background="@drawable/button_selector"
+                android:paddingLeft="15dp"
                 android:text="我的钱包"
-                android:textColor="@color/black"
-                android:gravity="left|center_vertical"/>
+                android:gravity="left|center_vertical"
+                android:textColor="@color/black"/>
 
-            <TextView
+            <Button
                 android:id="@+id/person_events_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -218,7 +221,7 @@
                 android:textColor="@color/black"
                 android:gravity="left|center_vertical"/>
 
-            <TextView
+            <Button
                 android:id="@+id/person_dailyTak_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -228,7 +231,7 @@
                 android:textColor="@color/black"
                 android:gravity="left|center_vertical"/>
 
-            <TextView
+            <Button
                 android:id="@+id/person_myIsland_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -238,7 +241,7 @@
                 android:textColor="@color/black"
                 android:gravity="left|center_vertical"/>
 
-            <TextView
+            <Button
                 android:id="@+id/person_history_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -248,14 +251,14 @@
                 android:textColor="@color/black"
                 android:gravity="left|center_vertical"/>
 
-            <LinearLayout
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_marginLeft="0dp"
                 android:background="@color/gray"
                 android:orientation="vertical" />
 
-            <TextView
+            <Button
                 android:id="@+id/person_darkMode_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -265,7 +268,7 @@
                 android:textColor="@color/black"
                 android:gravity="left|center_vertical"/>
 
-            <TextView
+            <Button
                 android:id="@+id/person_setting_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -275,7 +278,7 @@
                 android:textColor="@color/black"
                 android:gravity="left|center_vertical"/>
 
-            <TextView
+            <Button
                 android:id="@+id/person_helper_textView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

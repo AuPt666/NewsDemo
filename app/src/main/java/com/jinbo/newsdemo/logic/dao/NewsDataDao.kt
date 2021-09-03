@@ -3,6 +3,7 @@ package com.jinbo.newsdemo.logic.dao
 import androidx.room.*
 import com.jinbo.newsdemo.logic.model.NewsData
 
+/**********数据库操作类**********/
 @Dao
 interface NewsDataDao {
 

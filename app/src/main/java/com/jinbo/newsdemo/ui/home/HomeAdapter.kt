@@ -1,6 +1,8 @@
 package com.jinbo.newsdemo.ui.home
 
 import android.content.Intent
+import android.os.AsyncTask
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,11 +65,12 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
                     src.text = homeMsgDetail.src
                     title.text = homeMsgDetail.title
                     content.text = homeMsgDetail.content
-                    if (Repository.isRead(homeMsgDetail.title)) {
-                        readState.text = "已阅读"
-                    } else{
-                        readState.text = ""
-                    }
+                    Thread{
+                        val flag = Repository.isRead(homeMsgDetail.title)
+                        homeFragment.activity?.runOnUiThread {
+                            if (flag) readState.text = "已阅读" else readState.text = ""
+                        }
+                    }.start()
                 }
             }
             1 -> {
@@ -77,11 +80,12 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
                     src.text = homeMsgDetail.src
                     Glide.with(homeFragment.requireContext()).asBitmap()
                         .placeholder(R.drawable.loading).load(homeMsgDetail.pic).into(imageVessel)
-                    if (Repository.isRead(homeMsgDetail.title)) {
-                        readState.text = "已阅读"
-                    } else{
-                        readState.text = ""
-                    }
+                    Thread{
+                        val flag = Repository.isRead(homeMsgDetail.title)
+                        homeFragment.activity?.runOnUiThread {
+                            if (flag) readState.text = "已阅读" else readState.text = ""
+                        }
+                    }.start()
                 }
             }else -> {
                 val homeHasImageViewHolder: HomeHasImageViewHolder = holder as HomeHasImageViewHolder
@@ -92,11 +96,12 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
                     content.text = homeMsgDetail.content
                     Glide.with(homeFragment.requireContext()).asBitmap()
                         .placeholder(R.drawable.loading).load(homeMsgDetail.pic).into(pic)
-                    if (Repository.isRead(homeMsgDetail.title)) {
-                        readState.text = "已阅读"
-                    } else{
-                        readState.text = ""
-                    }
+                    Thread{
+                        val flag = Repository.isRead(homeMsgDetail.title)
+                        homeFragment.activity?.runOnUiThread {
+                            if (flag) readState.text = "已阅读" else readState.text = ""
+                        }
+                    }.start()
                 }
             }
         }
@@ -144,6 +149,4 @@ class HomeAdapter(private val homeFragment: HomeFragment, private val homeMsgLis
         val pic: ImageView = view.findViewById(R.id.homeItemWithImage_picImageView)
         val readState: TextView = view.findViewById(R.id.homeItemHasImage_readStateTextView)
     }
-
-
 }

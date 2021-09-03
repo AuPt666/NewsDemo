@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
         homeAdapter = HomeAdapter(this, homeViewModel.newsList)
         recyclerView.adapter = homeAdapter
 
+        //设置滑动停止时加载图片
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)

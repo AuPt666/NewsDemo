@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.jinbo.newsdemo.BaseApplication
 import com.jinbo.newsdemo.logic.Repository
 import com.jinbo.newsdemo.logic.model.NewsResponse
 
@@ -27,8 +28,6 @@ class HomeViewModel : ViewModel() {
     fun saveHistory(detail: NewsResponse.Detail, context: Context) = Repository.saveHistory(detail, context)
 
     fun getHistory(context: Context): List<NewsResponse.Detail> = Repository.getHistory(context)
-
-    fun isRead(title: String) = Repository.isRead(title)
 
     fun isHistorySaved(): Boolean = Repository.isHistorySave()
 

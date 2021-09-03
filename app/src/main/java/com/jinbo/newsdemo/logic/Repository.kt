@@ -102,7 +102,7 @@ object Repository {
 
     fun isLike(url: URL) = IslandDao.isLike(url)
 
-    fun isRead(title: String) = NewsDao.isRead(title)
+    fun isRead(title: String): Boolean = getNewsDataDao(BaseApplication.context).isRead(title) != null
 
     fun isHistorySave(): Boolean = NewsDao.isNewsDaoSaved()
 

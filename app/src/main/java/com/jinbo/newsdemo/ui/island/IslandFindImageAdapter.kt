@@ -24,9 +24,6 @@ class IslandFindImageAdapter(private val islandFindFragment: IslandFindFragment,
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.island_item_find_onlyimage, parent, false)
         val holder = IslandFindLengthWaysViewHolder(view)
 
-        StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build())
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build())
-
         holder.itemView.setOnClickListener {
             val position = holder.absoluteAdapterPosition
             val islandFindMsg = islandFindImgList[position]
@@ -49,23 +46,6 @@ class IslandFindImageAdapter(private val islandFindFragment: IslandFindFragment,
     }
 
     override fun getItemCount() = islandFindImgList.size
-
-    private fun getBitmap(url: URL): Bitmap? {
-        var bitmap: Bitmap? = null
-        try {
-            val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
-            conn.connectTimeout = 5000
-            conn.requestMethod = "GET"
-            if (conn.responseCode == 200) {
-                val inputStream: InputStream = conn.inputStream
-                bitmap = BitmapFactory.decodeStream(inputStream)
-                inputStream.close()
-            }
-        }catch (e: IOException){
-            e.printStackTrace()
-        }
-        return bitmap
-    }
 
     inner class IslandFindLengthWaysViewHolder(view: View): RecyclerView.ViewHolder(view){
         val imageView: ImageView = view.findViewById(R.id.island_item_findOnlyImage_imageView)
